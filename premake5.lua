@@ -101,16 +101,22 @@ project "GLFW"
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
+		staticruntime "on"
+		runtime "Release"
 
 	filter { "system:windows", "configurations:Debug-AS" }	
 		runtime "Debug"
 		symbols "on"
-		sanitize { "Address" }
+		if _ACTION == "vs2019" then
+			sanitize { "Address" }
+		end
 		flags { "NoRuntimeChecks", "NoIncrementalLink" }
 
 	filter "configurations:Release"
 		runtime "Release"
 		optimize "speed"
+		staticruntime "on"
+		runtime "Release"
 
     filter "configurations:Dist"
 		runtime "Release"
