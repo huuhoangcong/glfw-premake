@@ -1,7 +1,7 @@
 project "GLFW"
 	kind "StaticLib"
 	language "C"
-	staticruntime "off"
+	staticruntime "on"
 	warnings "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -101,24 +101,12 @@ project "GLFW"
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "on"
-		staticruntime "on"
-		runtime "Release"
-
-	filter { "system:windows", "configurations:Debug-AS" }	
-		runtime "Debug"
-		symbols "on"
-		if _ACTION == "vs2019" then
-			sanitize { "Address" }
-		end
-		flags { "NoRuntimeChecks", "NoIncrementalLink" }
 
 	filter "configurations:Release"
 		runtime "Release"
-		optimize "speed"
-		staticruntime "on"
-		runtime "Release"
+		optimize "on"
 
     filter "configurations:Dist"
 		runtime "Release"
-		optimize "speed"
-        symbols "off"
+		optimize "on"
+    	symbols "off"
